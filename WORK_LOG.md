@@ -1,9 +1,10 @@
 Name: YOUR NAME HERE
 
-| Date    |  Time  |                                     Update |
-|:--------|:------:|-------------------------------------------:|
-| April 5 | 9-10pm | I tried to write abstract, efficient code. |
-|         |        |                                            |
+| Date         |    Time     |                                                                                                                                                                                                                                                                                                                                                                                                                    Update |
+|:-------------|:-----------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| September 12 |   2-2:35    | I'm thinking about how to find which highways dont connect to each other which will find the clusters. So apparently I was looking online through a bunch of node connection algorithms, and I found an algorithm called Prim's algorithm and Kruskal's algorithm, which both seem like they fit for the problem set, so I was thinking about how I would implement Prim's algorithm into my code during this work block. |
+|              |             |                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|              | 5:30 - 7:30 |                                                                                                      I changede my mind and changed the way I thought about this problem and am probably just gonna do BFS for this for now, since I kinda know how that one works whereas the Prim's algorithm is confusing right now. Basically I just want to go through every connected component in the most efficient path I think. |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
