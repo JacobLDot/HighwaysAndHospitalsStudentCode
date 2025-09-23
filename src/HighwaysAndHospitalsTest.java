@@ -23,7 +23,7 @@ public class HighwaysAndHospitalsTest {
     private int n;
     private int m;
     private int hospitalCost;
-    private int hightwayCost;
+    private int highwayCost;
     private int[][] cities;
 
     @Test
@@ -71,12 +71,12 @@ public class HighwaysAndHospitalsTest {
             int numTests = Integer.parseInt(testReader.readLine());
 
             // Read in the data for each test, then run.
-            for (int i = 0; i < numTests; i++)
-            {
-                long answerCost = Long.parseLong(answerReader.readLine());
+            for (int i = 0; i < numTests; i++) {
                 loadTest(testReader);
-                assertEquals(answerCost, studentSolution.cost(n, hospitalCost, hightwayCost, cities),
-                        "Test " + testNumber + " failed: should return " + answerCost);
+                long cost = studentSolution.cost(n, hospitalCost, highwayCost, cities);
+                System.out.println("Test " + i + " result: " + cost);
+                long answerCost = Long.parseLong(answerReader.readLine());
+                assertEquals(answerCost, cost, "Test " + i + " failed");
             }
         } catch (IOException e) {
             System.out.println("Error opening test file #" + testNumber);
@@ -94,7 +94,7 @@ public class HighwaysAndHospitalsTest {
             n = Integer.parseInt(parts[0]);
             m = Integer.parseInt(parts[1]);
             hospitalCost = Integer.parseInt(parts[2]);
-            hightwayCost = Integer.parseInt(parts[3]);
+            highwayCost = Integer.parseInt(parts[3]);
             cities = new int[m][2];
 
             for (int i = 0; i < m; i++) {

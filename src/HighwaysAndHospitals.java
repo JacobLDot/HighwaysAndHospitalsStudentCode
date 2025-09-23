@@ -13,51 +13,82 @@ import java.util.Queue;
 
 public class HighwaysAndHospitals {
 
-    /**
-     * TODO: Complete this function, cost(), to return the minimum cost to provide
-     *  hospital access for all citizens in Menlo County.
-     */
+    // keep track of city clusters
+    static int[] parent, size;
+
+    // union city a and city b
+    static void union (int a, int b) {
+
+        // find root of each city
+        int rootA = find(a);
+        int rootB = find(b);
+
+        // if already in same cluster do nothing
+        if (rootA == rootB) return;
+
+        // weight balancing attaches smaller tree under the larger tree
+        if (size[rootA] < size[rootB]) {
+            int temp = rootA;
+            rootA = rootB;
+            rootB = temp;
+        }
+
+        // merge the cluster together
+        parent[rootB] = rootA;
+        size[rootA] += size[rootB];
+    }
+
+    // finds the root of the cluster containing city x using path compression
+    static int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // path compression using recursion
+        }
+        return parent[x];
+    }
+
+    // returns minimum cost to give hospitals to every town
     public static long cost(int n, int hospitalCost, int highwayCost, int cities[][]) {
 
-        // If hospitals are cheaper than highways, build a hospital in every city
+        // if hospitals are cheaper than highways, build a hospital in every city
         if (hospitalCost <= highwayCost) {
             return (long) n * hospitalCost;
         }
 
-        // Track visited cities
-        boolean[] visited = new boolean[n + 1];
+        // parent[i] = root of city i
+        parent = new int[n + 1];
+
+        // size[i] = size of tree rooted at i
+        size = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+
+            // set each city to its own root with a size of 1
+            parent[i] = i;
+            size[i] = 1;
+        }
+
+        // go through each highway and union
+        for (int[] highway : cities) {
+            union(highway[0], highway[1]);
+        }
+
         long totalCost = 0;
+        boolean[] counted = new boolean[n+1];
 
-        // Loop through every city
-        for (int i = 0; i < n; i++) {
+        // calculate cost for each cluster
+        for (int i = 1; i <= n; i++) {
 
-            // If it's an unvisited city, visit it
-            if (!visited[i]) {
-                Queue<Integer> queue = new LinkedList<>();
-                queue.add(i);
-                visited[i] = true;
+            // path compression to find the cluster's root
+            int root = find(i);
 
-                // Number of cities in the cluster
-                int size = 0;
-
-                while (!queue.isEmpty()) {
-
-                    // Move to the next city
-                    int currentCity = queue.poll();
-                    size++;
-
-                    // Visit connected cities
-                    // for each neighbor then
-                    for () {
-                        if (!visited[neighbor]) {
-                            visited[neighbor] = true;
-                            queue.add(neighbor);
-                        }
-                    }
-                }
+            // calculate cost if it hasn't been counted yet
+            if (!counted[root]) {
+                counted[root] = true;
+                int clusterSize = size[root];
+                totalCost += (long) hospitalCost + (long) (clusterSize - 1) * highwayCost;
             }
         }
 
+        // returns the minimum cost total
         return totalCost;
     }
 }
